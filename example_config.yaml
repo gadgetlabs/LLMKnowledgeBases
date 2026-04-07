@@ -1,0 +1,80 @@
+# llm-wiki — example configuration
+# Copy this file to config.yaml and edit for your setup.
+# config.yaml is gitignored to avoid committing personal paths.
+
+# ---------------------------------------------------------------------------
+# Wiki identity
+# ---------------------------------------------------------------------------
+wiki:
+  # Describe your knowledge domain in plain English.
+  # This is injected into all LLM prompts to make them domain-aware.
+  topic: machine learning, neural scaling laws, and AI safety
+
+  # Name used for the Modal cloud app (only relevant when extraction.mode = modal).
+  # app_name: my-wiki-pdf
+
+# ---------------------------------------------------------------------------
+# Paths
+# ---------------------------------------------------------------------------
+paths:
+  # Directory containing your source PDFs/documents.
+  # Used as the default target for `ingest.py scan`.
+  readings_dir: ~/Documents/papers/ml-reading-list
+
+  # Drop folder for watch mode. Defaults to <vault>/raw.
+  raw_dir: ~/Desktop/wiki-inbox
+
+  # Override wiki/ or outputs/ only if you need a non-standard layout.
+  # wiki_dir: ~/Documents/my-wiki/wiki
+  # outputs_dir: ~/Documents/my-wiki/outputs
+
+# ---------------------------------------------------------------------------
+# Claude model
+# ---------------------------------------------------------------------------
+model:
+  name: claude-sonnet-4-20250514
+  max_tokens: 4096
+
+# ---------------------------------------------------------------------------
+# PDF extraction
+# ---------------------------------------------------------------------------
+extraction:
+  # Extraction mode — choose one:
+  #   pypdf   Fast, CPU-only, plain text. Good enough for most documents.
+  #   local   marker-pdf → nougat → pypdf chain. Better layout. Needs GPU or time.
+  #   modal   Run marker-pdf on Modal GPU cloud. Fast + high quality.
+  mode: modal
+
+  # Parallel workers for `scan` and `retry` subcommands.
+  workers: 4
+
+  # Per-extractor timeout in seconds (local mode only).
+  marker_timeout: 120
+  nougat_timeout: 180
+
+  # Maximum characters of document text sent to Claude (~60k ≈ ~15k tokens).
+  max_text_chars: 60000
+
+# ---------------------------------------------------------------------------
+# Modal (cloud GPU) — only used when extraction.mode = modal
+# ---------------------------------------------------------------------------
+modal:
+  # GPU type: T4 (cheapest), A10G (faster), A100 (best). See modal.com/pricing.
+  gpu: A10G
+  # Memory allocated to the container in MB.
+  memory: 16384
+  # Hard timeout for the Modal function in seconds.
+  timeout: 300
+
+# ---------------------------------------------------------------------------
+# Linter
+# ---------------------------------------------------------------------------
+lint:
+  batch_size: 7
+
+# ---------------------------------------------------------------------------
+# Q&A agent
+# ---------------------------------------------------------------------------
+qa:
+  top_k: 15
+  search_outputs: false

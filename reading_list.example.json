@@ -1,0 +1,42 @@
+{
+  "lectures": [
+    {
+      "number": 1,
+      "title": "Introduction to the Field",
+      "description": "An overview of the core questions and methods in this domain. Covers foundational concepts, key debates, and the landscape of empirical evidence.",
+      "required": [
+        {
+          "citation": "Smith, J., & Jones, A. (2020). Foundations of the Field. Journal of Example Studies, 10(1), 1–30.",
+          "url": "https://doi.org/10.0000/example"
+        },
+        {
+          "citation": "Brown, R. (2018). Key Concepts Explained. Example Press.",
+          "url": null
+        }
+      ],
+      "suggested": [
+        {
+          "citation": "White, C. (2021). A Broader View. Annual Review of Example Research, 5, 100–130.",
+          "url": "https://doi.org/10.0000/example2"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Methodology and Research Design",
+      "description": "Covers quantitative and qualitative methods used in the field. Discusses randomised controlled trials, observational studies, and their trade-offs.",
+      "required": [
+        {
+          "citation": "Davis, L. (2019). Research Methods for Practitioners. Oxford University Press.",
+          "url": null
+        }
+      ],
+      "suggested": [
+        {
+          "citation": "Miller, P. (2022). Experimental Design in Context. Example Quarterly, 8(2), 45–70.",
+          "url": "https://doi.org/10.0000/example3"
+        }
+      ]
+    }
+  ]
+}

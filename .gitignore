@@ -1,0 +1,29 @@
+# Personal config and data — keep out of version control
+config.yaml
+reading_list.json
+
+# Local test script
+test.sh
+
+# Raycast script commands (machine-specific paths)
+scripts/raycast/
+
+# Wiki content — generated, not source
+wiki/
+outputs/
+unprocessed/
+raw/
+index.md
+
+# Search index
+scripts/.search_index/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+
+# macOS
+.DS_Store
+.obsidian/
