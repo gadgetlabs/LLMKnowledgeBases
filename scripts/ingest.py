@@ -29,7 +29,7 @@ import config_loader as cfg
 # ---------------------------------------------------------------------------
 # Config — values come from config.yaml with env-var / hardcoded fallbacks
 # ---------------------------------------------------------------------------
-WIKI_PATH = Path(os.environ.get("WIKI_PATH", "~/policing-wiki")).expanduser()
+WIKI_PATH = Path(os.environ.get("WIKI_PATH", str(Path(__file__).parent.parent))).expanduser()
 
 WIKI_DIR = Path(cfg.get("paths.wiki_dir", str(WIKI_PATH / "wiki"))).expanduser()
 OUTPUTS_DIR = Path(cfg.get("paths.outputs_dir", str(WIKI_PATH / "outputs"))).expanduser()
@@ -576,6 +576,12 @@ def _run_parallel(pdfs: list[Path], workers: int, fast: bool = False) -> int:
     Ingest a list of PDFs in parallel. Returns count of successes.
     Index is rebuilt once at the end rather than after each file.
     """
+    # Modal's app.run() is not re-entrant; cap to 1 worker so the lock in
+    # modal_extractor.py doesn't have to queue threads indefinitely.
+    if cfg.get("extraction.mode", "local") == "modal" and workers > 1:
+        log.info("Modal mode: capping workers to 1 (Modal handles parallelism in the cloud)")
+        workers = 1
+
     total = len(pdfs)
     success = 0
 

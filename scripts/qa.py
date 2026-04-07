@@ -23,7 +23,7 @@ import config_loader as cfg
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
-WIKI_PATH = Path(os.environ.get("WIKI_PATH", "~/policing-wiki")).expanduser()
+WIKI_PATH = Path(os.environ.get("WIKI_PATH", str(Path(__file__).parent.parent))).expanduser()
 WIKI_DIR = Path(cfg.get("paths.wiki_dir", str(WIKI_PATH / "wiki"))).expanduser()
 OUTPUTS_DIR = Path(cfg.get("paths.outputs_dir", str(WIKI_PATH / "outputs"))).expanduser()
 SEARCH_INDEX_DIR = WIKI_PATH / "scripts" / ".search_index"

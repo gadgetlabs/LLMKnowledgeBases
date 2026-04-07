@@ -12,7 +12,10 @@ from pathlib import Path
 
 log = logging.getLogger(__name__)
 
-WIKI_PATH = Path(os.environ.get("WIKI_PATH", "~/policing-wiki")).expanduser()
+# Default WIKI_PATH to the project root (parent of scripts/) so config.yaml
+# is always found regardless of where the user cloned the repo.
+_project_root = Path(__file__).parent.parent
+WIKI_PATH = Path(os.environ.get("WIKI_PATH", str(_project_root))).expanduser()
 CONFIG_PATH = WIKI_PATH / "config.yaml"
 
 _cache: dict | None = None
